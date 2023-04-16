@@ -1,11 +1,20 @@
 import 'package:e_kantin/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../../components/rounded_button.dart';
 import 'components/otpForm/otp_form.dart';
 
-class VerificationScreen extends StatelessWidget {
-  const VerificationScreen({super.key});
+class VerificationScreen extends StatefulWidget {
   static String routeName = '/verification';
+  String phoneNum;
+  VerificationScreen({required this.phoneNum, required String phoneNumber});
+
+  @override
+  _VerificationScreen createState() => _VerificationScreen(phoneNum);
+}
+
+class _VerificationScreen extends State<VerificationScreen> {
+  _VerificationScreen(String phoneNum);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +84,7 @@ class VerificationScreen extends StatelessWidget {
                       child: SizedBox(
                         width: size.width * 0.7,
                         child: Text(
-                          args.phone,
+                          phoneNum,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
@@ -95,7 +104,9 @@ class VerificationScreen extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
-                              return const VerificationScreen();
+                              return VerificationScreen(
+                                phoneNum: '',
+                              );
                             },
                           ),
                         );

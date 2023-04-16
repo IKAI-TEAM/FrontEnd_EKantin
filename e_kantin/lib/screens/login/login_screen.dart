@@ -13,12 +13,14 @@ class LoginScreen extends StatelessWidget {
   String phoneNumber = '';
 
   static String routeName = '/login';
-  LoginScreen({super.key});
+  LoginScreen({super.key, required String phoneNum});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false, // set it to false
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: SizedBox(
@@ -101,8 +103,8 @@ class LoginScreen extends StatelessWidget {
                         onFieldSubmitted: (phoneNum) {
                           //asign phoneNumber jadi phoneNum
                           phoneNumber = phoneNum;
-
                           //ScreenArguments.from(phoneNum);
+
                           return;
                         },
                         keyboardType: TextInputType.number,
@@ -152,11 +154,10 @@ class LoginScreen extends StatelessWidget {
                       width: size.width * 0.8,
                       text: 'Masuk',
                       press: () {
-                        Navigator.pushNamed(
-                          context,
-                          VerificationScreen.routeName,
-                          arguments: ScreenArguments(phoneNumber),
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              VerificationScreen(phoneNum: phoneNum),
+                        ));
                       },
                     ),
                     Padding(
