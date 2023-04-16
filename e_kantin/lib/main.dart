@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Auth',
       theme: ThemeData(
         fontFamily: 'DM Sans',
-        primaryColor: mainColor,
+        primaryColor: kMainColor,
         scaffoldBackgroundColor: Colors.white,
       ),
       initialRoute: SplashScreen.routeName,

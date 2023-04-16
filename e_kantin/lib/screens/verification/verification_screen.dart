@@ -1,26 +1,24 @@
-import 'package:e_kantin/screens/login/login_screen.dart';
+// import 'package:e_kantin/screens/login/login_screen.dart';
+import 'package:e_kantin/screens/success/success_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import '../../components/rounded_button.dart';
 import 'components/otpForm/otp_form.dart';
 
-class VerificationScreen extends StatefulWidget {
+class VerificationScreen extends StatelessWidget {
   static String routeName = '/verification';
-  String phoneNum;
-  VerificationScreen({required this.phoneNum, required String phoneNumber});
-
-  @override
-  _VerificationScreen createState() => _VerificationScreen(phoneNum);
-}
-
-class _VerificationScreen extends State<VerificationScreen> {
-  _VerificationScreen(String phoneNum);
+  final String phone;
+  const VerificationScreen({
+    super.key,
+    required this.phone,
+  });
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    print(args);
+    String formattedPhoneNumber = phone.length < 11
+        ? "${phone.substring(0, 3)}-${phone.substring(3, 6)}-${phone.substring(6)}"
+        : "${phone.substring(0, 3)}-${phone.substring(3, 7)}-${phone.substring(7)}";
+    // final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Scaffold(
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -34,10 +32,11 @@ class _VerificationScreen extends State<VerificationScreen> {
                 top: 45,
                 left: 10,
                 child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -84,7 +83,7 @@ class _VerificationScreen extends State<VerificationScreen> {
                       child: SizedBox(
                         width: size.width * 0.7,
                         child: Text(
-                          phoneNum,
+                          "+62 $formattedPhoneNumber",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
@@ -101,14 +100,9 @@ class _VerificationScreen extends State<VerificationScreen> {
                       width: size.width * 0.8,
                       text: 'Masuk',
                       press: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return VerificationScreen(
-                                phoneNum: '',
-                              );
-                            },
-                          ),
+                        Navigator.pushNamed(
+                          context,
+                          SuccessScreen.routeName,
                         );
                       },
                     ),

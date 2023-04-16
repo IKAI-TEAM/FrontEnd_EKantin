@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../components/form_error.dart';
 import '../../components/rounded_button.dart';
+import '../../constants.dart';
 import '../verification/verification_screen.dart';
 
-class ScreenArguments {
-  final String phone;
-  const ScreenArguments(this.phone);
+class ScreenArguments extends ChangeNotifier {
+  String phone = "ada";
+  String get getPhone => phone;
+  // savePhone(String phoneNum) {
+  //   phone = phoneNum;
+  //   notifyListeners();
+  // }
 }
 
-class LoginScreen extends StatelessWidget {
-  //ini buat assisng phone number
-  String phoneNumber = '';
-
+class LoginScreen extends StatefulWidget {
   static String routeName = '/login';
-  LoginScreen({super.key, required String phoneNum});
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String phoneNum = "";
+  final _formKey = GlobalKey<FormState>();
+  final List<String> errors = [];
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // set it to false
+      // resizeToAvoidBottomInset: false, // set it to false
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: SizedBox(
@@ -33,10 +45,13 @@ class LoginScreen extends StatelessWidget {
                 top: 45,
                 left: 10,
                 child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -99,43 +114,70 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       width: size.width * 0.7,
-                      child: TextFormField(
-                        onFieldSubmitted: (phoneNum) {
-                          //asign phoneNumber jadi phoneNum
-                          phoneNumber = phoneNum;
-                          //ScreenArguments.from(phoneNum);
-
-                          return;
-                        },
-                        keyboardType: TextInputType.number,
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        decoration: const InputDecoration(
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 5,
-                            ),
-                            child: Text(
-                              "+62",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty &&
+                                    !errors.contains(kPhoneNullError)) {
+                              setState(
+                                () {
+                                  errors.add(kPhoneNullError);
+                                },
+                              );
+                            } else if (value.isNotEmpty && value.length < 9) {
+                              setState(
+                                () {
+                                  errors.add(kPhoneTooShort);
+                                },
+                              );
+                            }
+                            return null;
+                          },
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          decoration: const InputDecoration(
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 5,
+                              ),
+                              child: Text(
+                                "+62",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
+                            prefixIconConstraints: BoxConstraints(
+                              minWidth: 0,
+                              minHeight: 0,
+                            ),
                           ),
-                          prefixIconConstraints: BoxConstraints(
-                            minWidth: 0,
-                            minHeight: 0,
-                          ),
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(12),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          onFieldSubmitted: (value) {
+                            setState(
+                              () {},
+                            );
+                          },
+                          onChanged: (value) {
+                            setState(
+                              () {
+                                phoneNum = value;
+                              },
+                            );
+                          },
                         ),
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(13),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
                       ),
                     ),
+                    FormError(errors: errors),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 40),
                       child: SizedBox(
@@ -154,10 +196,17 @@ class LoginScreen extends StatelessWidget {
                       width: size.width * 0.8,
                       text: 'Masuk',
                       press: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              VerificationScreen(phoneNum: phoneNum),
-                        ));
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState?.save();
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (BuildContext context) {
+                          //       return VerificationScreen(phone: phoneNum);
+                          //     },
+                          //   ),
+                          // );
+                        }
                       },
                     ),
                     Padding(

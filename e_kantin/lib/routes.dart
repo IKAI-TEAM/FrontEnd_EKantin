@@ -8,7 +8,7 @@ import 'screens/success/success_screen.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
   WelcomeScreen.routeName: (context) => const WelcomeScreen(),
-  LoginScreen.routeName: (context) => LoginScreen(),
-  VerificationScreen.routeName: (context) => VerificationScreen(),
+  LoginScreen.routeName: (context) => const LoginScreen(),
+  // VerificationScreen.routeName: (context) => VerificationScreen(phoneNum: ,),
   SuccessScreen.routeName: (context) => const SuccessScreen(),
 };
