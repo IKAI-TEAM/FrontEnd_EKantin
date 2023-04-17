@@ -19,6 +19,16 @@ class SuccessScreen extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
+              Positioned(
+                top: 45,
+                left: 10,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 45,
@@ -34,30 +44,24 @@ class SuccessScreen extends StatelessWidget {
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width * 0.1,
-                        height: size.width * 0.1,
-                        fit: BoxFit.cover,
-                      ),
                     ),
                     Image.asset(
-                      "assets/images/otp.png",
+                      "assets/images/sukses.png",
                       width: size.width * 0.7,
                     ),
                     SizedBox(
-                      height: size.height * 0.04,
+                      height: size.height * 0.05,
                     ),
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: SizedBox(
                         width: size.width * 0.6,
                         child: const Text(
-                          "INI SUCCESS SCREEN",
-                          textAlign: TextAlign.start,
+                          "Masuk Berhasil!",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 44,
+                            fontSize: 30,
                           ),
                         ),
                       ),
@@ -66,15 +70,15 @@ class SuccessScreen extends StatelessWidget {
                       height: size.height * 0.02,
                     ),
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: SizedBox(
                         width: size.width * 0.6,
                         child: const Text(
-                          "Login dengan Nomor Telepon yang sudah terdaftar.",
-                          textAlign: TextAlign.start,
+                          "Proses masuk yang anda lakukan telah berhasil, anda dapat lanjut ke Halaman Utama",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            fontSize: 12,
                           ),
                         ),
                       ),
