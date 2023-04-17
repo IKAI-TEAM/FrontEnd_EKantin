@@ -12,6 +12,7 @@ class VerificationScreen extends StatelessWidget {
     required this.phone,
   });
 
+  static final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -92,7 +93,10 @@ class VerificationScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const OtpForm(),
+                    Form(
+                      key: _formKey,
+                      child: const OtpForm(),
+                    ),
                     SizedBox(
                       height: size.height * 0.1,
                     ),
@@ -100,10 +104,13 @@ class VerificationScreen extends StatelessWidget {
                       width: size.width * 0.8,
                       text: 'Masuk',
                       press: () {
-                        Navigator.pushNamed(
-                          context,
-                          SuccessScreen.routeName,
-                        );
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          Navigator.pushNamed(
+                            context,
+                            SuccessScreen.routeName,
+                          );
+                        }
                       },
                     ),
                     Padding(

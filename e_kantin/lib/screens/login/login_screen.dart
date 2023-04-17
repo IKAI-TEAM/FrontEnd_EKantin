@@ -5,14 +5,14 @@ import '../../components/rounded_button.dart';
 import '../../constants.dart';
 import '../verification/verification_screen.dart';
 
-class ScreenArguments extends ChangeNotifier {
-  String phone = "ada";
-  String get getPhone => phone;
-  // savePhone(String phoneNum) {
-  //   phone = phoneNum;
-  //   notifyListeners();
-  // }
-}
+// class ScreenArguments extends ChangeNotifier {
+//   String phone = "";
+//   String get getPhone => phone;
+//   // savePhone(String phoneNum) {
+//   //   phone = phoneNum;
+//   //   notifyListeners();
+//   // }
+// }
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/login';
@@ -127,12 +127,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   errors.add(kPhoneNullError);
                                 },
                               );
+                              return kPhoneNullError;
                             } else if (value.isNotEmpty && value.length < 9) {
                               setState(
                                 () {
                                   errors.add(kPhoneTooShort);
                                 },
                               );
+                              return kPhoneTooShort;
                             }
                             return null;
                           },
@@ -153,6 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
+                            border: UnderlineInputBorder(),
                             prefixIconConstraints: BoxConstraints(
                               minWidth: 0,
                               minHeight: 0,
@@ -177,7 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    FormError(errors: errors),
+                    // INI BUAT CUSTOM ERROR TEXT
+                    // FormError(errors: errors),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 40),
                       child: SizedBox(
@@ -198,14 +202,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       press: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState?.save();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (BuildContext context) {
-                          //       return VerificationScreen(phone: phoneNum);
-                          //     },
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return VerificationScreen(phone: phoneNum);
+                              },
+                            ),
+                          );
                         }
                       },
                     ),
