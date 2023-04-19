@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_kantin/screens/welcome/components/body.dart';
+import 'components/body.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static String routeName = '/welcome';

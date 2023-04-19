@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:e_kantin/screens/welcome/welcome_screen.dart';
+import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,11 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    SizeConfig().init(context);
     return Scaffold(
       body: Center(
         child: Container(
-          width: size.width * 0.25,
+          width: SizeConfig.screenWidth * 0.25,
           decoration: const BoxDecoration(
               image: DecorationImage(
             image: AssetImage(

@@ -1,3 +1,4 @@
+import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../components/form_error.dart';
@@ -29,21 +30,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       // resizeToAvoidBottomInset: false, // set it to false
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: SizedBox(
           width: double.infinity,
-          height: size.height,
+          height: SizeConfig.screenHeight,
           child: Stack(
             alignment: Alignment.center,
             children: [
               Positioned(
-                top: 45,
-                left: 10,
+                top: getProportionateScreenHeight(45),
+                left: getProportionateScreenWidth(10),
                 child: IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -54,66 +53,66 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 45,
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(45),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(15),
-                      width: size.width * 0.2,
-                      height: size.width * 0.2,
+                      padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+                      width: SizeConfig.screenWidth * 0.2,
+                      height: SizeConfig.screenWidth * 0.2,
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
                       child: Image.asset(
                         "assets/images/logo.png",
-                        width: size.width * 0.1,
-                        height: size.width * 0.1,
+                        width: SizeConfig.screenWidth * 0.1,
+                        height: SizeConfig.screenWidth * 0.1,
                         fit: BoxFit.cover,
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.04,
+                      height: SizeConfig.screenHeight * 0.04,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: size.width * 0.6,
-                        child: const Text(
+                        width: SizeConfig.screenWidth * 0.6,
+                        child: Text(
                           "Welcome to E-Kantin",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 44,
+                            fontSize: getProportionateScreenWidth(42),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.02,
+                      height: SizeConfig.screenHeight * 0.02,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: size.width * 0.6,
-                        child: const Text(
+                        width: SizeConfig.screenWidth * 0.6,
+                        child: Text(
                           "Login dengan Nomor Telepon yang sudah terdaftar.",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            fontSize: getProportionateScreenWidth(18),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.04,
+                      height: SizeConfig.screenHeight * 0.04,
                     ),
                     SizedBox(
-                      width: size.width * 0.7,
+                      width: SizeConfig.screenWidth * 0.7,
                       child: Form(
                         key: _formKey,
                         child: TextFormField(
@@ -138,25 +137,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
-                          style: const TextStyle(
-                            fontSize: 28,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(28),
                             fontWeight: FontWeight.bold,
                           ),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 5,
+                                horizontal: getProportionateScreenWidth(5),
                               ),
                               child: Text(
                                 "+62",
                                 style: TextStyle(
-                                  fontSize: 28,
+                                  fontSize: getProportionateScreenWidth(28),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            border: UnderlineInputBorder(),
-                            prefixIconConstraints: BoxConstraints(
+                            prefixIconConstraints: const BoxConstraints(
                               minWidth: 0,
                               minHeight: 0,
                             ),
@@ -183,9 +181,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     // INI BUAT CUSTOM ERROR TEXT
                     // FormError(errors: errors),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      padding: EdgeInsets.symmetric(
+                          vertical: getProportionateScreenHeight(30)),
                       child: SizedBox(
-                        width: size.width * 0.6,
+                        width: SizeConfig.screenWidth * 0.6,
                         child: const Text(
                           'Dengan ketukan “Masuk” anda menyetujui syarat dan ketentuan',
                           textAlign: TextAlign.center,
@@ -194,10 +193,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.2,
+                      height: SizeConfig.screenHeight * 0.2,
                     ),
                     RoundedButton(
-                      width: size.width * 0.8,
+                      width: SizeConfig.screenWidth * 0.8,
                       text: 'Masuk',
                       press: () {
                         if (_formKey.currentState!.validate()) {
@@ -214,9 +213,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      padding: EdgeInsets.only(
+                          bottom: getProportionateScreenHeight(20)),
                       child: SizedBox(
-                        width: size.width * 0.6,
+                        width: SizeConfig.screenWidth * 0.6,
                         child: const Text(
                           'Pengguna Baru? Daftar di sini',
                           textAlign: TextAlign.center,

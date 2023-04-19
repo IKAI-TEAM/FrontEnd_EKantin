@@ -1,3 +1,4 @@
+import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -9,11 +10,10 @@ class Background extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: SizedBox(
-        height: size.height,
+        height: SizeConfig.screenHeight,
         width: double.infinity,
         child: Stack(
           alignment: Alignment.center,
@@ -23,7 +23,7 @@ class Background extends StatelessWidget {
               left: 0,
               child: Image.asset(
                 "assets/images/main_left.png",
-                width: size.width * 0.8,
+                width: SizeConfig.screenWidth * 0.8,
               ),
             ),
             Positioned(
@@ -31,7 +31,7 @@ class Background extends StatelessWidget {
               right: 0,
               child: Image.asset(
                 "assets/images/main_right.png",
-                width: size.height * 0.4,
+                width: SizeConfig.screenHeight * 0.4,
               ),
             ),
             Positioned(
@@ -39,7 +39,7 @@ class Background extends StatelessWidget {
               right: -25,
               child: Image.asset(
                 "assets/images/splash_icon.png",
-                width: size.width * 1.3,
+                width: SizeConfig.screenWidth * 1.3,
               ),
             ),
             child,

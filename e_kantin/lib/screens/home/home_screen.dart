@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../components/rounded_button.dart';
+import 'components/home_body.dart';
 
 class HomePage extends StatelessWidget {
   static String routeName = '/home';
@@ -8,6 +7,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      body: MainBody(),
+    );
   }
 }
