@@ -1,3 +1,4 @@
+import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,8 +14,8 @@ class OtpForm extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          height: 68,
-          width: 64,
+          height: getProportionateScreenHeight(65),
+          width: getProportionateScreenWidth(64),
           child: TextFormField(
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -38,8 +39,8 @@ class OtpForm extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 68,
-          width: 64,
+          height: getProportionateScreenHeight(65),
+          width: getProportionateScreenWidth(64),
           child: TextFormField(
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -63,8 +64,8 @@ class OtpForm extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 68,
-          width: 64,
+          height: getProportionateScreenHeight(65),
+          width: getProportionateScreenWidth(64),
           child: TextFormField(
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -88,8 +89,8 @@ class OtpForm extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 68,
-          width: 64,
+          height: getProportionateScreenHeight(65),
+          width: getProportionateScreenWidth(64),
           child: TextFormField(
             validator: (value) {
               if (value == null || value.isEmpty) {
