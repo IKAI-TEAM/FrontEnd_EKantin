@@ -34,24 +34,24 @@ class HomeHeader extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(15),
             ),
-            width: SizeConfig.screenWidth * 0.5,
+            width: SizeConfig.screenWidth * 0.7,
             height: SizeConfig.screenWidth * 0.12,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Text(
                   "Good Morning",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                    fontSize: getProportionateScreenHeight(14),
                   ),
                 ),
                 Text(
-                  "Nabeel Muhammad D",
+                  "Nabeel Muhammad Diaz",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: getProportionateScreenHeight(18),
                   ),
                 )
               ],

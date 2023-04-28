@@ -1,5 +1,6 @@
 import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/models/product.dart';
+import 'package:e_kantin/screens/home/components/product_sheet.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -9,14 +10,15 @@ class ProductCard extends StatelessWidget {
     required this.product,
     this.width = 150,
     this.aspectRatio = 1.02,
+    this.paddingLeft = 0,
   });
 
   final Product product;
-  final double width, aspectRatio;
+  final double width, aspectRatio, paddingLeft;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(left: paddingLeft),
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: Column(
@@ -79,7 +81,22 @@ class ProductCard extends StatelessWidget {
                       color: kMainColor,
                       padding: EdgeInsets.zero,
                       icon: const Icon(Icons.add),
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(30),
+                            ),
+                          ),
+                          builder: (BuildContext context) {
+                            return ProductSheet(
+                              product: product,
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 )

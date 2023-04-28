@@ -6,14 +6,10 @@ import '../../components/rounded_button.dart';
 import '../../constants.dart';
 import '../verification/verification_screen.dart';
 
-// class ScreenArguments extends ChangeNotifier {
-//   String phone = "";
-//   String get getPhone => phone;
-//   // savePhone(String phoneNum) {
-//   //   phone = phoneNum;
-//   //   notifyListeners();
-//   // }
-// }
+class ScreenArguments {
+  final String phone;
+  const ScreenArguments(this.phone);
+}
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/login';
@@ -31,9 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false, // set it to false
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
+        // scrollDirection: Axis.vertical,
         child: SizedBox(
           width: double.infinity,
           height: SizeConfig.screenHeight,
@@ -80,9 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: SizeConfig.screenWidth * 0.6,
+                        // width: SizeConfig.screenWidth * 0.6,
                         child: Text(
-                          "Welcome to E-Kantin",
+                          "Welcome to \nE-Kantin",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -97,9 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: SizeConfig.screenWidth * 0.6,
+                        // width: SizeConfig.screenWidth * 0.6,
                         child: Text(
-                          "Login dengan Nomor Telepon yang sudah terdaftar.",
+                          "Login dengan Nomor Telepon \nyang sudah terdaftar.",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -163,11 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             LengthLimitingTextInputFormatter(12),
                             FilteringTextInputFormatter.digitsOnly,
                           ],
-                          onFieldSubmitted: (value) {
-                            setState(
-                              () {},
-                            );
-                          },
                           onChanged: (value) {
                             setState(
                               () {
@@ -183,17 +174,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: getProportionateScreenHeight(30)),
-                      child: SizedBox(
-                        width: SizeConfig.screenWidth * 0.6,
-                        child: const Text(
-                          'Dengan ketukan “Masuk” anda menyetujui syarat dan ketentuan',
+                      child: const SizedBox(
+                        // width: SizeConfig.screenWidth * 0.6,
+                        child: Text(
+                          'Dengan ketukan “Masuk” anda \nmenyetujui syarat dan ketentuan',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.2,
+                      height: SizeConfig.screenHeight * 0.1,
                     ),
                     RoundedButton(
                       width: SizeConfig.screenWidth * 0.8,
@@ -201,13 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       press: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState?.save();
-                          Navigator.push(
+                          Navigator.pushNamed(
                             context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return VerificationScreen(phone: phoneNum);
-                              },
-                            ),
+                            VerificationScreen.routeName,
+                            arguments: {"phone_number": phoneNum},
                           );
                         }
                       },
@@ -215,9 +203,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.only(
                           bottom: getProportionateScreenHeight(20)),
-                      child: SizedBox(
-                        width: SizeConfig.screenWidth * 0.6,
-                        child: const Text(
+                      child: const SizedBox(
+                        // width: SizeConfig.screenWidth * 0.6,
+                        child: Text(
                           'Pengguna Baru? Daftar di sini',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontWeight: FontWeight.w500),
