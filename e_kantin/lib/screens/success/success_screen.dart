@@ -56,7 +56,7 @@ class SuccessScreen extends StatelessWidget {
                       "Masuk Berhasil!",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: getProportionateScreenWidth(34),
+                        fontSize: getProportionateScreenHeight(34),
                       ),
                     ),
                     SizedBox(
@@ -67,11 +67,11 @@ class SuccessScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenWidth(14),
+                        fontSize: getProportionateScreenHeight(14),
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.2,
+                      height: SizeConfig.screenHeight * 0.1,
                     ),
                     RoundedButton(
                       width: SizeConfig.screenWidth * 0.8,

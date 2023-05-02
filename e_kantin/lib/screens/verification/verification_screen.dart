@@ -7,18 +7,24 @@ import 'components/otpForm/otp_form.dart';
 
 class VerificationScreen extends StatelessWidget {
   static String routeName = '/verification';
-  final String phone;
+  // final String phone;
   const VerificationScreen({
     super.key,
-    required this.phone,
+    // required this.phone,
   });
 
   static final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    String formattedPhoneNumber = phone.length < 11
-        ? "${phone.substring(0, 3)}-${phone.substring(3, 6)}-${phone.substring(6)}"
-        : "${phone.substring(0, 3)}-${phone.substring(3, 7)}-${phone.substring(7)}";
+    final Map<String, Object>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, Object>?;
+    String phoneNumber = args?['phone_number'] as String;
+    // final TextEditingController putPhoneNumber =
+    //     TextEditingController(text: phoneNumber ?? '');
+
+    String formattedPhoneNumber = phoneNumber.length < 11
+        ? "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}"
+        : "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}";
     // final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Scaffold(
       body: SingleChildScrollView(
@@ -65,29 +71,29 @@ class VerificationScreen extends StatelessWidget {
                       width: SizeConfig.screenWidth * 0.7,
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.05,
+                      height: SizeConfig.screenHeight * 0.04,
                     ),
                     SizedBox(
-                      width: SizeConfig.screenWidth * 0.7,
+                      // width: SizeConfig.screenWidth * 0.7,
                       child: Text(
-                        "Kami akan mengirimkan satu kali verifikasi dengan Nomer telepon ini",
+                        "Kami akan mengirimkan satu kali \nverifikasi dengan Nomer telepon ini",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: getProportionateScreenWidth(16),
+                          fontSize: getProportionateScreenHeight(16),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: SizedBox(
-                        width: SizeConfig.screenWidth * 0.7,
+                        // width: SizeConfig.screenWidth * 0.7,
                         child: Text(
                           "+62 $formattedPhoneNumber",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: getProportionateScreenWidth(18),
+                            fontSize: getProportionateScreenHeight(18),
                           ),
                         ),
                       ),
@@ -97,7 +103,7 @@ class VerificationScreen extends StatelessWidget {
                       child: const OtpForm(),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.08,
+                      height: SizeConfig.screenHeight * 0.05,
                     ),
                     RoundedButton(
                       width: SizeConfig.screenWidth * 0.8,
@@ -115,12 +121,14 @@ class VerificationScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                           bottom: getProportionateScreenHeight(20)),
-                      child: SizedBox(
-                        width: SizeConfig.screenWidth * 0.6,
-                        child: const Text(
+                      child: const SizedBox(
+                        // width: SizeConfig.screenWidth * 0.6,
+                        child: Text(
                           'Tidak Menerima Kode? Kirim Ulang',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),

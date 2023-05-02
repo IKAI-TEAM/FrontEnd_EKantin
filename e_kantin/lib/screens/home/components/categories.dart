@@ -68,8 +68,8 @@ class CategoriesCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 5,
+            SizedBox(
+              height: getProportionateScreenHeight(5),
             ),
             Text(
               text,
@@ -77,7 +77,7 @@ class CategoriesCard extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: getProportionateScreenWidth(14),
+                fontSize: getProportionateScreenHeight(14),
               ),
             )
           ],

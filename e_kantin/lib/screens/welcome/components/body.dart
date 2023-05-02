@@ -12,7 +12,7 @@ class Body extends StatelessWidget {
     return Background(
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(40),
+          horizontal: getProportionateScreenWidth(30),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -39,21 +39,21 @@ class Body extends StatelessWidget {
               height: SizeConfig.screenHeight * 0.04,
             ),
             Text(
-              "Get Your Food Delivered to Your Class",
+              "Get Your Food \nDelivered to Your Class",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: getProportionateScreenWidth(30),
+                fontSize: getProportionateScreenHeight(30),
               ),
             ),
             SizedBox(
               height: SizeConfig.screenHeight * 0.03,
             ),
             Text(
-              "The best delivery app in school for delivering your daily food",
+              "The best delivery app in school for delivering \nyour daily food",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getProportionateScreenWidth(16),
+                fontSize: getProportionateScreenHeight(16),
               ),
             ),
             SizedBox(
