@@ -6,5 +6,5 @@ const kButtonColor = Color(0xff1A3848);
 const kTextColor = Color(0xFF979899);
 
 // Form Error
-const kPhoneNullError = "Masukkan Nomor Telepon";
+const kPhoneNullError = "Masukkan Nomor Telepon Kamu Sekarang";
 const kPhoneTooShort = "Please enter valid phone number";
