@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:e_kantin/models/auth/login_request_model.dart';
+import 'package:e_kantin/services/api_services.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -114,21 +118,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: TextFormField(
                           keyboardType: TextInputType.phone,
                           validator: (value) {
-                            if (value == null ||
-                                value.isEmpty &&
-                                    !errors.contains(kPhoneNullError)) {
-                              setState(
-                                () {
-                                  errors.add(kPhoneNullError);
-                                },
-                              );
+                            if (value == null || value.isEmpty && !errors.contains(kPhoneNullError)) {
+                              setState(() => errors.add(kPhoneNullError) );
                               return kPhoneNullError;
                             } else if (value.isNotEmpty && value.length < 9) {
-                              setState(
-                                () {
-                                  errors.add(kPhoneTooShort);
-                                },
-                              );
+                              setState(() => errors.add(kPhoneTooShort) );
                               return kPhoneTooShort;
                             }
                             return null;
@@ -192,11 +186,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       press: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState?.save();
-                          Navigator.pushNamed(
-                            context,
-                            VerificationScreen.routeName,
-                            arguments: {"phone_number": phoneNum},
-                          );
+
+                          LoginRequestModel model = LoginRequestModel(
+                              phoneNumber: int.parse(phoneNum));
+
+                          APIService.login(model).then((response) => {
+                            if(response) {
+                              Navigator.pushNamed(context, VerificationScreen.routeName, arguments: 
+                                {
+                                  "phone_number": phoneNum
+                                },
+                              )
+                            }
+                          });
+
                         }
                       },
                     ),
