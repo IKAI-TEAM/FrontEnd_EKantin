@@ -1,5 +1,9 @@
 // import 'package:e_kantin/screens/login/login_screen.dart';
+import 'dart:developer';
+
+import 'package:e_kantin/models/auth/otp_validation_request_model.dart';
 import 'package:e_kantin/screens/success/success_screen.dart';
+import 'package:e_kantin/services/api_services.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import '../../components/rounded_button.dart';
@@ -19,13 +23,15 @@ class VerificationScreen extends StatelessWidget {
     final Map<String, Object>? args =
         ModalRoute.of(context)?.settings.arguments as Map<String, Object>?;
     String phoneNumber = args?['phone_number'] as String;
-    // final TextEditingController putPhoneNumber =
-    //     TextEditingController(text: phoneNumber ?? '');
 
-    String formattedPhoneNumber = phoneNumber.length < 11
-        ? "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}"
-        : "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}";
-    // final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    String formattedPhoneNumber = _formatPhoneNumber(phoneNumber);
+
+    // String formattedPhoneNumber = phoneNumber.length < 11
+    //     ? "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}"
+    //     : "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}";
+
+    List<dynamic> otpValues = [];
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -100,21 +106,42 @@ class VerificationScreen extends StatelessWidget {
                     ),
                     Form(
                       key: _formKey,
-                      child: const OtpForm(),
+                      child: OtpForm(onOtpFormComplete: (_otpValues) {
+                        otpValues = _otpValues;
+                      }),
                     ),
                     SizedBox(
                       height: SizeConfig.screenHeight * 0.05,
                     ),
                     RoundedButton(
                       width: SizeConfig.screenWidth * 0.8,
-                      text: 'Masuk',
+                      text: 'Verifikasi',
                       press: () {
                         if (_formKey.currentState!.validate()) {
+                          log(otpValues.toString());
+                          log("saved");
                           _formKey.currentState!.save();
-                          Navigator.pushNamed(
-                            context,
-                            SuccessScreen.routeName,
-                          );
+
+                          if (!otpValues.contains(null)) {
+                            OtpValidationRequestModel model =
+                                OtpValidationRequestModel(
+                                    otp: _getOtpValues(otpValues));
+
+                            APIService.otp(model).then((response) => {
+                              if (response == 1) {
+                                Navigator.pushNamed(context, SuccessScreen.routeName),
+                              } else if(response == 2) {
+                                // disini pindahin ke register
+                                print('pindahin ke register beel')
+                              } else {
+                                print("nabeel, disini error kode otp salah")
+                              }
+                            });
+                          } else {
+                            log("nabeel, tolong disini kasih error otp ada yang belum diisi !");
+                          }
+                        } else {
+                          log("ga valid");
                         }
                       },
                     ),
@@ -140,5 +167,20 @@ class VerificationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  int _getOtpValues(otpValues) {
+    String otpString = otpValues.join();
+    String numericString = otpString.replaceAll(RegExp('[^0-9]'), '');
+    log(numericString);
+    int otpResult = int.parse(numericString);
+
+    return otpResult;
+  }
+
+  String _formatPhoneNumber(String phoneNumber) {
+    return phoneNumber.length < 11
+        ? "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}"
+        : "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}";
   }
 }
