@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:e_kantin/models/auth/login_request_model.dart';
 import 'package:e_kantin/services/api_services.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../components/form_error.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
 import '../verification/verification_screen.dart';
@@ -116,13 +113,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Form(
                         key: _formKey,
                         child: TextFormField(
+                          textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
-                            if (value == null || value.isEmpty && !errors.contains(kPhoneNullError)) {
-                              setState(() => errors.add(kPhoneNullError) );
+                            if (value == null ||
+                                value.isEmpty &&
+                                    !errors.contains(kPhoneNullError)) {
+                              setState(() => errors.add(kPhoneNullError));
                               return kPhoneNullError;
                             } else if (value.isNotEmpty && value.length < 9) {
-                              setState(() => errors.add(kPhoneTooShort) );
+                              setState(() => errors.add(kPhoneTooShort));
                               return kPhoneTooShort;
                             }
                             return null;
@@ -188,18 +188,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           _formKey.currentState?.save();
 
                           LoginRequestModel model = LoginRequestModel(
-                              phoneNumber: int.parse(phoneNum));
+                            phoneNumber: int.parse(phoneNum),
+                          );
 
-                          APIService.login(model).then((response) => {
-                            if(response) {
-                              Navigator.pushNamed(context, VerificationScreen.routeName, arguments: 
+                          APIService.login(model).then(
+                            (response) => {
+                              if (response)
                                 {
-                                  "phone_number": phoneNum
+                                  Navigator.pushNamed(
+                                    context,
+                                    VerificationScreen.routeName,
+                                    arguments: {"phone_number": phoneNum},
+                                  ),
                                 },
-                              )
-                            }
-                          });
-
+                            },
+                          );
                         }
                       },
                     ),
@@ -207,7 +210,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.only(
                           bottom: getProportionateScreenHeight(20)),
                       child: const SizedBox(
-                        // width: SizeConfig.screenWidth * 0.6,
                         child: Text(
                           'Pengguna Baru? Daftar di sini',
                           textAlign: TextAlign.center,

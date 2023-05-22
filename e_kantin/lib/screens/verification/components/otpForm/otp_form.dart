@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/services.dart';
 class OtpForm extends StatefulWidget {
   final ValueSetter<List<dynamic>> onOtpFormComplete;
 
-  OtpForm({Key? key, required this.onOtpFormComplete}) : super(key: key);
+  const OtpForm({Key? key, required this.onOtpFormComplete}) : super(key: key);
 
   @override
   _OtpFormState createState() => _OtpFormState();
@@ -24,7 +22,6 @@ class _OtpFormState extends State<OtpForm> {
     super.initState();
     for (int i = 0; i < _focusNodes.length; i++) {
       _focusNodes[i].addListener(() {
-
         if (i > 0) {
           if (_focusNodes[i].hasFocus) {
             if (otpCode[i - 1] == null) {
@@ -55,34 +52,44 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        for (var i = 0; i < 4; i++)
-          SizedBox(
-            height: getProportionateScreenHeight(65),
-            width: getProportionateScreenWidth(64),
-            child: TextFormField(
-              focusNode: _focusNodes[i],
-              controller: _controllers[i],
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '';
-                }
-                return null;
-              },
-              onSaved: (pin) {},
-              onChanged: (value) => _onPinChanged(i, value),
-              style: Theme.of(context).textTheme.titleLarge,
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-              ],
+    return RawKeyboardListener(
+      focusNode: FocusNode(),
+      onKey: (event) {
+        final key = event.logicalKey;
+        if (event is RawKeyDownEvent) {
+          if (event.isKeyPressed(LogicalKeyboardKey.backspace)) {}
+          ;
+        }
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          for (var i = 0; i < 4; i++)
+            SizedBox(
+              height: getProportionateScreenHeight(65),
+              width: getProportionateScreenWidth(64),
+              child: TextFormField(
+                focusNode: _focusNodes[i],
+                controller: _controllers[i],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return '';
+                  }
+                  return null;
+                },
+                onSaved: (pin) {},
+                onChanged: (value) => _onPinChanged(i, value),
+                style: Theme.of(context).textTheme.titleLarge,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.center,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(1),
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

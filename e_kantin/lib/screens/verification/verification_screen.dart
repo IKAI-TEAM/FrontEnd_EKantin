@@ -1,6 +1,7 @@
 // import 'package:e_kantin/screens/login/login_screen.dart';
 import 'dart:developer';
 
+import 'package:e_kantin/components/form_error.dart';
 import 'package:e_kantin/models/auth/otp_validation_request_model.dart';
 import 'package:e_kantin/screens/success/success_screen.dart';
 import 'package:e_kantin/services/api_services.dart';
@@ -9,15 +10,21 @@ import 'package:flutter/material.dart';
 import '../../components/rounded_button.dart';
 import 'components/otpForm/otp_form.dart';
 
-class VerificationScreen extends StatelessWidget {
+class VerificationScreen extends StatefulWidget {
   static String routeName = '/verification';
-  // final String phone;
   const VerificationScreen({
     super.key,
-    // required this.phone,
   });
 
   static final _formKey = GlobalKey<FormState>();
+
+  @override
+  State<VerificationScreen> createState() => _VerificationScreenState();
+}
+
+class _VerificationScreenState extends State<VerificationScreen> {
+  final List<String> errors = [];
+
   @override
   Widget build(BuildContext context) {
     final Map<String, Object>? args =
@@ -25,10 +32,6 @@ class VerificationScreen extends StatelessWidget {
     String phoneNumber = args?['phone_number'] as String;
 
     String formattedPhoneNumber = _formatPhoneNumber(phoneNumber);
-
-    // String formattedPhoneNumber = phoneNumber.length < 11
-    //     ? "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}"
-    //     : "${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}";
 
     List<dynamic> otpValues = [];
 
@@ -80,7 +83,6 @@ class VerificationScreen extends StatelessWidget {
                       height: SizeConfig.screenHeight * 0.04,
                     ),
                     SizedBox(
-                      // width: SizeConfig.screenWidth * 0.7,
                       child: Text(
                         "Kami akan mengirimkan satu kali \nverifikasi dengan Nomer telepon ini",
                         textAlign: TextAlign.center,
@@ -93,7 +95,6 @@ class VerificationScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: SizedBox(
-                        // width: SizeConfig.screenWidth * 0.7,
                         child: Text(
                           "+62 $formattedPhoneNumber",
                           textAlign: TextAlign.center,
@@ -105,11 +106,12 @@ class VerificationScreen extends StatelessWidget {
                       ),
                     ),
                     Form(
-                      key: _formKey,
+                      key: VerificationScreen._formKey,
                       child: OtpForm(onOtpFormComplete: (_otpValues) {
                         otpValues = _otpValues;
                       }),
                     ),
+                    FormError(errors: errors),
                     SizedBox(
                       height: SizeConfig.screenHeight * 0.05,
                     ),
@@ -117,31 +119,41 @@ class VerificationScreen extends StatelessWidget {
                       width: SizeConfig.screenWidth * 0.8,
                       text: 'Verifikasi',
                       press: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (VerificationScreen._formKey.currentState!
+                            .validate()) {
                           log(otpValues.toString());
                           log("saved");
-                          _formKey.currentState!.save();
+                          VerificationScreen._formKey.currentState!.save();
 
                           if (!otpValues.contains(null)) {
                             OtpValidationRequestModel model =
                                 OtpValidationRequestModel(
                                     otp: _getOtpValues(otpValues));
 
-                            APIService.otp(model).then((response) => {
-                              if (response == 1) {
-                                Navigator.pushNamed(context, SuccessScreen.routeName),
-                              } else if(response == 2) {
-                                // disini pindahin ke register
-                                print('pindahin ke register beel')
-                              } else {
-                                print("nabeel, disini error kode otp salah")
-                              }
-                            });
+                            APIService.otp(model).then(
+                              (response) => {
+                                if (response == 1)
+                                  {
+                                    Navigator.pushNamed(
+                                      context,
+                                      SuccessScreen.routeName,
+                                    ),
+                                  }
+                                else if (response == 2)
+                                  {
+                                    print('pindahin ke register beel'),
+                                  }
+                                else
+                                  {
+                                    setState(() => errors.add("OTP Salah")),
+                                  }
+                              },
+                            );
                           } else {
-                            log("nabeel, tolong disini kasih error otp ada yang belum diisi !");
+                            errors.add("ADA YANG BELUM DIISI");
                           }
                         } else {
-                          log("ga valid");
+                          errors.add("INVALID");
                         }
                       },
                     ),

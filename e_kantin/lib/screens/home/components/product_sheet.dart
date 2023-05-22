@@ -3,6 +3,7 @@ import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/models/product.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProductSheet extends StatefulWidget {
   const ProductSheet({
@@ -21,9 +22,9 @@ class _ProductSheetState extends State<ProductSheet> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      maxChildSize: 0.62,
-      initialChildSize: 0.6,
-      minChildSize: 0.5,
+      maxChildSize: 0.65,
+      initialChildSize: 0.62,
+      minChildSize: 0.6,
       expand: false,
       builder: (context, scrollController) {
         return SingleChildScrollView(
@@ -103,9 +104,9 @@ class _ProductSheetState extends State<ProductSheet> {
                                   height: getProportionateScreenHeight(35),
                                   width: getProportionateScreenHeight(35),
                                   decoration: BoxDecoration(
-                                    color: itemCount != 0
+                                    color: itemCount != 1
                                         ? kSecondaryColor
-                                        : kTextColor.withOpacity(0.6),
+                                        : kTextColor.withOpacity(0.3),
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(
                                         getProportionateScreenHeight(8),
@@ -115,8 +116,8 @@ class _ProductSheetState extends State<ProductSheet> {
                                   child: IconButton(
                                     padding: const EdgeInsets.all(0),
                                     color: kMainColor,
-                                    disabledColor: Colors.black,
-                                    onPressed: itemCount != 0
+                                    disabledColor: Colors.black54,
+                                    onPressed: itemCount != 1
                                         ? () {
                                             setState(() {
                                               itemCount--;
@@ -166,54 +167,112 @@ class _ProductSheetState extends State<ProductSheet> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(30),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: getProportionateScreenHeight(25),
-                          width: getProportionateScreenHeight(25),
-                          decoration: BoxDecoration(
-                            color: kMainColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                getProportionateScreenHeight(8),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(30),
+                        ),
+                        child: TextButton(
+                          style: ButtonStyle(
+                            fixedSize: MaterialStateProperty.all<Size>(
+                              Size.fromWidth(SizeConfig.screenWidth * 0.3),
+                            ),
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.zero),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color.fromARGB(255, 250, 250, 250),
+                            ),
+                          ),
+                          onPressed: () {
+                            showMaterialModalBottomSheet(
+                              context: context,
+                              builder: (context) => SingleChildScrollView(
+                                controller: ModalScrollController.of(context),
+                                child: Container(),
                               ),
-                            ),
-                          ),
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.add_rounded,
-                              color: kMainColor,
-                            ),
+                            );
+                            ;
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                height: getProportionateScreenHeight(25),
+                                width: getProportionateScreenHeight(25),
+                                decoration: BoxDecoration(
+                                  color: kMainColor.withOpacity(0.2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      getProportionateScreenHeight(8),
+                                    ),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.add_rounded,
+                                  color: kMainColor,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: getProportionateScreenHeight(10),
+                                ),
+                                child: Text(
+                                  "Tambahan",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          getProportionateScreenHeight(16),
+                                      color: kTextColor),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: getProportionateScreenHeight(10),
-                          ),
-                          child: Text(
-                            "Tambahan",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: getProportionateScreenHeight(16),
-                                color: kTextColor),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   RoundedButton(
-                      text:
-                          "Masukkan Keranjang - Rp. ${total != 0 ? total : widget.product.price}",
-                      press: () {},
-                      width: SizeConfig.screenWidth * 0.9)
+                    text:
+                        "Masukkan Keranjang - Rp. ${total != 0 ? total : widget.product.price}",
+                    press: () {},
+                    width: SizeConfig.screenWidth * 0.9,
+                  )
                 ],
               ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class AddOnSheet extends StatefulWidget {
+  const AddOnSheet({super.key, required this.product});
+  final Product product;
+
+  @override
+  State<AddOnSheet> createState() => _AddOnSheetState();
+}
+
+class _AddOnSheetState extends State<AddOnSheet> {
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.52,
+      minChildSize: 0.5,
+      maxChildSize: 0.6,
+      expand: false,
+      builder: (context, scrollController) {
+        return SingleChildScrollView(
+          child: Stack(
+            alignment: Alignment.topCenter,
+            clipBehavior: Clip.none,
+            children: [
+              Column(
+                children: [Text("Tambahan Untuk ${widget.product.title}")],
+              )
             ],
           ),
         );
