@@ -1,9 +1,9 @@
 import 'package:e_kantin/components/rounded_button.dart';
 import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/models/product.dart';
+import 'package:e_kantin/screens/home/components/addon_sheet.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProductSheet extends StatefulWidget {
   const ProductSheet({
@@ -19,6 +19,7 @@ class ProductSheet extends StatefulWidget {
 class _ProductSheetState extends State<ProductSheet> {
   int itemCount = 1;
   int total = 0;
+  int addon = 0;
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -173,106 +174,92 @@ class _ProductSheetState extends State<ProductSheet> {
                         padding: EdgeInsets.symmetric(
                           horizontal: getProportionateScreenWidth(30),
                         ),
-                        child: TextButton(
-                          style: ButtonStyle(
-                            fixedSize: MaterialStateProperty.all<Size>(
-                              Size.fromWidth(SizeConfig.screenWidth * 0.3),
-                            ),
-                            padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                    EdgeInsets.zero),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color.fromARGB(255, 250, 250, 250),
-                            ),
-                          ),
-                          onPressed: () {
-                            showMaterialModalBottomSheet(
-                              context: context,
-                              builder: (context) => SingleChildScrollView(
-                                controller: ModalScrollController.of(context),
-                                child: Container(),
-                              ),
-                            );
-                            ;
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                height: getProportionateScreenHeight(25),
-                                width: getProportionateScreenHeight(25),
-                                decoration: BoxDecoration(
-                                  color: kMainColor.withOpacity(0.2),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      getProportionateScreenHeight(8),
-                                    ),
+                        child: widget.product.addons.isNotEmpty
+                            ? TextButton(
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all<Size>(
+                                    Size.fromWidth(
+                                        SizeConfig.screenWidth * 0.3),
+                                  ),
+                                  padding: MaterialStateProperty.all<
+                                      EdgeInsetsGeometry>(EdgeInsets.zero),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    const Color.fromARGB(255, 250, 250, 250),
                                   ),
                                 ),
-                                child: const Icon(
-                                  Icons.add_rounded,
-                                  color: kMainColor,
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(30),
+                                      ),
+                                    ),
+                                    builder: (BuildContext context) {
+                                      return AddOnSheet(
+                                        product: widget.product,
+                                        hargaTambahan: (addons) {
+                                          addon = addons;
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: getProportionateScreenHeight(25),
+                                      width: getProportionateScreenHeight(25),
+                                      decoration: BoxDecoration(
+                                        color: kMainColor.withOpacity(0.2),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            getProportionateScreenHeight(8),
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.add_rounded,
+                                        color: kMainColor,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: getProportionateScreenHeight(10),
+                                      ),
+                                      child: Text(
+                                        "Tambahan",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize:
+                                                getProportionateScreenHeight(
+                                                    16),
+                                            color: kTextColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Text(
+                                "No Add-On",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: getProportionateScreenHeight(14),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: getProportionateScreenHeight(10),
-                                ),
-                                child: Text(
-                                  "Tambahan",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          getProportionateScreenHeight(16),
-                                      color: kTextColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
                     ],
                   ),
                   RoundedButton(
                     text:
-                        "Masukkan Keranjang - Rp. ${total != 0 ? total : widget.product.price}",
+                        "Masukkan Keranjang - Rp. ${total != 0 ? total + addon : widget.product.price}",
                     press: () {},
                     width: SizeConfig.screenWidth * 0.9,
                   )
                 ],
               ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class AddOnSheet extends StatefulWidget {
-  const AddOnSheet({super.key, required this.product});
-  final Product product;
-
-  @override
-  State<AddOnSheet> createState() => _AddOnSheetState();
-}
-
-class _AddOnSheetState extends State<AddOnSheet> {
-  @override
-  Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.52,
-      minChildSize: 0.5,
-      maxChildSize: 0.6,
-      expand: false,
-      builder: (context, scrollController) {
-        return SingleChildScrollView(
-          child: Stack(
-            alignment: Alignment.topCenter,
-            clipBehavior: Clip.none,
-            children: [
-              Column(
-                children: [Text("Tambahan Untuk ${widget.product.title}")],
-              )
             ],
           ),
         );

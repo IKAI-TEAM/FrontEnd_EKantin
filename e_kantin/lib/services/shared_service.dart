@@ -1,54 +1,49 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:e_kantin/models/auth/login_response_model.dart';
-import 'package:flutter/cupertino.dart';
 
 class SharedService {
-	static Future<bool> isLoggedIn() async {
-		var isCacheKeyExist =
-				await APICacheManager().isAPICacheKeyExist("login_details");
+  static Future<bool> isLoggedIn() async {
+    var isCacheKeyExist =
+        await APICacheManager().isAPICacheKeyExist("login_details");
 
-		return isCacheKeyExist;
-	}
+    return isCacheKeyExist;
+  }
 
-	static Future<LoginResponseModel?> loginDetails() async {
-		var isCacheKeyExist = await APICacheManager().isAPICacheKeyExist("login_details");
+  static Future<LoginResponseModel?> loginDetails() async {
+    var isCacheKeyExist =
+        await APICacheManager().isAPICacheKeyExist("login_details");
 
-		if (isCacheKeyExist) {
-			var cacheData = await APICacheManager().getCacheData("login_details");
+    if (isCacheKeyExist) {
+      var cacheData = await APICacheManager().getCacheData("login_details");
 
-			return loginResponseJson(cacheData.syncData);
-		}
-	}
+      return loginResponseJson(cacheData.syncData);
+    }
+    return null;
+  }
 
+  static Future<void> setToken(LoginResponseModel loginResponse) async {
+    String? token = loginResponse.getToken();
 
-	static Future<void> setToken(LoginResponseModel loginResponse) async {
+    APICacheDBModel cacheModel =
+        APICacheDBModel(key: "token", syncData: token.toString());
 
-		String? token = loginResponse.getToken();
+    log(token.toString());
 
-		APICacheDBModel cacheModel = APICacheDBModel(
-			key: "token",
-			syncData: token.toString()
-		);
+    await APICacheManager().addCacheData(cacheModel);
+  }
 
-		log(token.toString());
+  static Future<String?> getToken() async {
+    var isCacheKeyExist = await APICacheManager().isAPICacheKeyExist("token");
 
-		await APICacheManager().addCacheData(cacheModel);
-	}
+    if (isCacheKeyExist) {
+      var cacheData = await APICacheManager().getCacheData("token");
 
-	static Future<String?> getToken() async {
-		var isCacheKeyExist = await APICacheManager().isAPICacheKeyExist("token");
+      return cacheData.syncData;
+    }
 
-		if (isCacheKeyExist) {
-			var cacheData = await APICacheManager().getCacheData("token");
-
-			return cacheData.syncData;
-		}
-
-		return null;
-	}
-
+    return null;
+  }
 }

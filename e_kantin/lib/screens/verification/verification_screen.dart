@@ -186,6 +186,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
     String numericString = otpString.replaceAll(RegExp('[^0-9]'), '');
     log(numericString);
     int otpResult = int.parse(numericString);
+    try {
+      otpResult = int.parse(numericString);
+    } catch (e) {
+      // invalid
+    }
 
     return otpResult;
   }

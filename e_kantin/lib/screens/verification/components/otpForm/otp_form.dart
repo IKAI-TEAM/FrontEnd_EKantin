@@ -52,44 +52,33 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      focusNode: FocusNode(),
-      onKey: (event) {
-        final key = event.logicalKey;
-        if (event is RawKeyDownEvent) {
-          if (event.isKeyPressed(LogicalKeyboardKey.backspace)) {}
-          ;
-        }
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          for (var i = 0; i < 4; i++)
-            SizedBox(
-              height: getProportionateScreenHeight(65),
-              width: getProportionateScreenWidth(64),
-              child: TextFormField(
-                focusNode: _focusNodes[i],
-                controller: _controllers[i],
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return '';
-                  }
-                  return null;
-                },
-                onSaved: (pin) {},
-                onChanged: (value) => _onPinChanged(i, value),
-                style: Theme.of(context).textTheme.titleLarge,
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(1),
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-              ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        for (var i = 0; i < 4; i++)
+          SizedBox(
+            height: getProportionateScreenHeight(65),
+            width: getProportionateScreenWidth(64),
+            child: TextFormField(
+              focusNode: _focusNodes[i],
+              controller: _controllers[i],
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return '';
+                }
+                return null;
+              },
+              onChanged: (value) => _onPinChanged(i, value),
+              style: Theme.of(context).textTheme.titleLarge,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(1),
+                FilteringTextInputFormatter.digitsOnly,
+              ],
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

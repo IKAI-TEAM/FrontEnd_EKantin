@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:e_kantin/config/config.dart';
 import 'package:e_kantin/models/auth/login_request_model.dart';

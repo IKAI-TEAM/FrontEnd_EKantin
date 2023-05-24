@@ -6,7 +6,7 @@ class Product {
   final List<String> images;
   final List<Color> colors;
   final int price;
-  final List<String> addons;
+  final Map<String, int> addons;
 
   Product({
     required this.images,
@@ -20,33 +20,44 @@ class Product {
 
 List<Product> demoProduct = [
   Product(
-      images: [
-        "assets/images/kentang.png",
-        "assets/images/kentang.png",
-        "assets/images/kentang.png",
-      ],
-      colors: [
-        kMainColor,
-        Colors.white,
-      ],
-      title: "Kentang Goreng",
-      description: "bla bla bla bla bla",
-      price: 10000,
-      addons: ["Saos", "Telus", "Sosis"]),
+    images: [
+      "assets/images/kentang.png",
+      "assets/images/kentang.png",
+      "assets/images/kentang.png",
+    ],
+    colors: [
+      kMainColor,
+      Colors.white,
+    ],
+    title: "Kentang Goreng",
+    description: "bla bla bla bla bla",
+    price: 10000,
+    addons: {
+      "Saos": 2000,
+      "Telur": 3000,
+      "Sosis": 4000,
+    },
+  ),
   Product(
-      images: [
-        "assets/images/burger.png",
-        "assets/images/burger.png",
-        "assets/images/burger.png",
-      ],
-      colors: [
-        kMainColor,
-        Colors.white,
-      ],
-      title: "Burger",
-      description: "bla bla bla bla bla",
-      price: 15000,
-      addons: ["Saos", "Telus", "Sosis"]),
+    images: [
+      "assets/images/burger.png",
+      "assets/images/burger.png",
+      "assets/images/burger.png",
+    ],
+    colors: [
+      kMainColor,
+      Colors.white,
+    ],
+    title: "Burger",
+    description: "bla bla bla bla bla",
+    price: 15000,
+    addons: {
+      "Saos": 2000,
+      "Telur": 3000,
+      "Sosis": 4000,
+      "Nasi": 5000,
+    },
+  ),
   Product(
     images: [
       "assets/images/ayam.png",
@@ -60,6 +71,6 @@ List<Product> demoProduct = [
     title: "Ayam Goreng",
     description: "bla bla bla bla bla",
     price: 15000,
-    addons: [""],
+    addons: {},
   ),
 ];
