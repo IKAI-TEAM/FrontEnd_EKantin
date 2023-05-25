@@ -39,6 +39,8 @@ dependencies:
      http: ^0.13.6
      api_cache_manager: ^1.0.2
      modal_bottom_sheet: ^2.1.2
+     never_behind_keyboard: ^1.0.2
+     dropdown_search: ^5.0.6
 
 dev_dependencies:
      flutter_test:

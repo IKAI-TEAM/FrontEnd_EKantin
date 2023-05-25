@@ -3,6 +3,8 @@ import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/models/product.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:never_behind_keyboard/never_behind_keyboard.dart';
 
 class AddOnSheet extends StatefulWidget {
   const AddOnSheet({
@@ -18,7 +20,6 @@ class AddOnSheet extends StatefulWidget {
 }
 
 class _AddOnSheetState extends State<AddOnSheet> {
-  // bool? checkedValue = false;
   late List<bool?> checkedValue = List.generate(
     widget.product.addons.length,
     (index) => false,
@@ -30,6 +31,8 @@ class _AddOnSheetState extends State<AddOnSheet> {
     widget.product.addons.length,
     (index) => 0,
   );
+
+  final formKey = GlobalKey<FormState>();
 
   num totalPrice = 0;
 
@@ -53,14 +56,6 @@ class _AddOnSheetState extends State<AddOnSheet> {
     });
   }
 
-  void _getAddonPrice() {
-    checkedValue.map((e) {
-      if (e!) {
-        price.add;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -69,69 +64,89 @@ class _AddOnSheetState extends State<AddOnSheet> {
       maxChildSize: 0.7,
       initialChildSize: 0.6,
       builder: (context, scrollController) {
-        return SingleChildScrollView(
-          controller: scrollController,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(30)),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: getProportionateScreenHeight(20),
-                  ),
-                  child: Text(
-                    "Tambahan",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: getProportionateScreenHeight(22),
-                    ),
-                  ),
-                ),
-                ...List.generate(
-                  widget.product.addons.length,
-                  (index) => Padding(
-                    padding: EdgeInsets.only(
-                      bottom: getProportionateScreenHeight(10),
-                    ),
-                    child: CheckboxListTile(
-                      title: Text(addonsList[index]),
-                      subtitle: Text(addonsPrice[index].toString()),
-                      value: checkedValue[index],
-                      onChanged: (value) {
-                        setState(() {
-                          _onCheckboxChange(value, index);
-                        });
-                      },
-                      tileColor: kSecondaryColor,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      activeColor: kMainColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          getProportionateScreenHeight(15),
+        return NeverBehindKeyboardArea(
+          scrollView: ListView(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            controller: scrollController,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(30)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: getProportionateScreenHeight(20),
+                      ),
+                      child: Text(
+                        "Tambahan",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: getProportionateScreenHeight(22),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                const Row(
-                  children: [
-                    Text("Catatan"),
+                    ...List.generate(
+                      widget.product.addons.length,
+                      (index) => Padding(
+                        padding: EdgeInsets.only(
+                          bottom: getProportionateScreenHeight(10),
+                        ),
+                        child: CheckboxListTile(
+                          title: Text(addonsList[index]),
+                          subtitle: Text(addonsPrice[index].toString()),
+                          value: checkedValue[index],
+                          onChanged: (value) {
+                            setState(() {
+                              _onCheckboxChange(value, index);
+                            });
+                          },
+                          tileColor: kSecondaryColor,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          activeColor: kMainColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              getProportionateScreenHeight(15),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Row(
+                      children: [
+                        Text("Catatan"),
+                      ],
+                    ),
+                    Form(
+                      key: formKey,
+                      child: TextFormField(
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(50),
+                          FilteringTextInputFormatter.singleLineFormatter,
+                        ],
+                        decoration: InputDecoration(
+                          // labelText: "Catatan",
+                          border: const OutlineInputBorder(),
+                          hintText: 'Ga pedes yaa >.<',
+                          contentPadding:
+                              EdgeInsets.all(getProportionateScreenHeight(10)),
+                        ),
+                      ),
+                    ),
+                    RoundedButton(
+                      text: "Add Addon - $totalPrice",
+                      press: () {
+                        Navigator.pop(context);
+                      },
+                      width: SizeConfig.screenWidth,
+                    ),
+                    NeverBehindBottom(key: GlobalKey()),
                   ],
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      labelText: "Catatan", border: OutlineInputBorder()),
-                ),
-                RoundedButton(
-                  text: "Add Addon - $totalPrice",
-                  press: () {
-                    Navigator.pop(context);
-                  },
-                  width: SizeConfig.screenWidth,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

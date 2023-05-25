@@ -1,5 +1,6 @@
 import 'package:e_kantin/models/auth/login_request_model.dart';
-import 'package:e_kantin/screens/register/register_screen.dart';
+import 'package:e_kantin/screens/login/login_screen.dart';
+import 'package:e_kantin/screens/register/data_regist.dart';
 import 'package:e_kantin/services/api_services.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/gestures.dart';
@@ -14,15 +15,15 @@ class ScreenArguments {
   const ScreenArguments(this.phone);
 }
 
-class LoginScreen extends StatefulWidget {
-  static String routeName = '/login';
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  static String routeName = '/register';
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   String phoneNum = "";
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
@@ -32,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
-        // scrollDirection: Axis.vertical,
         child: SizedBox(
           width: double.infinity,
           height: SizeConfig.screenHeight,
@@ -81,11 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: SizedBox(
                         // width: SizeConfig.screenWidth * 0.6,
                         child: Text(
-                          "Welcome to \nE-Kantin",
+                          "Harap Masukkan \nNomor Telepon",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: getProportionateScreenHeight(42),
+                            fontSize: getProportionateScreenHeight(34),
                           ),
                         ),
                       ),
@@ -162,17 +162,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    // INI BUAT CUSTOM ERROR TEXT
-                    // FormError(errors: errors),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: getProportionateScreenHeight(30)),
-                      child: const SizedBox(
+                      child: SizedBox(
                         // width: SizeConfig.screenWidth * 0.6,
-                        child: Text(
-                          'Dengan ketukan “Masuk” anda \nmenyetujui syarat dan ketentuan',
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              const TextSpan(
+                                  text:
+                                      'Dengan ketukan "Daftar" anda \nmenyetujui '),
+                              TextSpan(
+                                text: 'syarat dan ketentuan',
+                                style: const TextStyle(color: kMainColor),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {},
+                              ),
+                            ],
+                          ),
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -181,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     RoundedButton(
                       width: SizeConfig.screenWidth * 0.8,
-                      text: 'Masuk',
+                      text: 'Daftar',
                       press: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState?.save();
@@ -194,10 +204,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             (response) => {
                               if (response)
                                 {
+                                  // Reminder
                                   Navigator.pushNamed(
                                     context,
-                                    VerificationScreen.routeName,
-                                    arguments: {"phone_number": phoneNum},
+                                    DataRegister.routeName,
+                                    // VerificationScreen.routeName,
+                                    // arguments: {"phone_number": phoneNum},
                                   ),
                                 },
                             },
@@ -212,7 +224,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text.rich(
                           TextSpan(
                             children: [
-                              const TextSpan(text: 'Pengguna Baru? Daftar '),
+                              const TextSpan(
+                                  text: 'Sudah Memiliki Akun? Masuk '),
                               TextSpan(
                                 text: 'disini',
                                 style: const TextStyle(color: kMainColor),
@@ -220,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ..onTap = () {
                                     Navigator.pushNamed(
                                       context,
-                                      RegisterScreen.routeName,
+                                      LoginScreen.routeName,
                                     );
                                   },
                               ),
