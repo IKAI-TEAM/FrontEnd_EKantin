@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:e_kantin/screens/success/success_screen.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,16 +23,16 @@ class _DataRegisterState extends State<DataRegister> {
     'Sekolah Kemana Asdjefss Kamal',
     'Sekolah Katholik Keren Abiezz',
     'Sekolah Menengah Atas Telkom Jaya Jaya Jaya',
-    'Sekolah Masanfiuahofihaundlqwa ajshfiuasdda',
-    'Sekolah gj2r8tfwef jivhoiasd',
-    'Sekolah ahfoisiadjaoih ajshfiuasdda',
-    'Sekolah Masanfiuahofihaundlqwa sjdsahdsda',
+    'Sekolah Masanfiuahokfasafihaundlqwa ajshfiuasdda',
+    'Sekolah gj2r8tfwef jivhfamboiasd',
+    'Sekolah ahfoisiadjaoih ajshsadfiuasdda',
+    'Sekolah Masanfasnviuahofihaundlqwa sjdsahdsda',
     'Sekolah Mengenah Kekiri Dikit',
     'Sekolah Menengah Kekanan',
-    'Sekolah Masanfiuahofihaundlqwa ajshfiuasdda',
-    'Sekolah gj2r8tfwef jivhoiasd',
-    'Sekolah ahfoisiadjaoih ajshfiuasdda',
-    'Sekolah Masanfiuahofihaundlqwa sjdsahdsda',
+    'Sekolah Masanfiuahofihssaaundlqwa ajshfiuasdda',
+    'Sekolah gj2r8bntfwef jivhofniasd',
+    'Sekolah ahfoisiadjvjnaoih ajshfiuasdda',
+    'Sekolah Masanfiuahofihavbkundlqwa sjdsahdsda',
   ];
 
   String email = '';
@@ -72,7 +73,7 @@ class _DataRegisterState extends State<DataRegister> {
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.04,
+                      height: SizeConfig.screenHeight * 0.015,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -89,44 +90,50 @@ class _DataRegisterState extends State<DataRegister> {
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.02,
+                      height: SizeConfig.screenHeight * 0.03,
                     ),
                     SizedBox(
-                      width: SizeConfig.screenWidth * 0.7,
-                      height: SizeConfig.screenHeight * 0.4,
+                      height: SizeConfig.screenHeight * 0.35,
                       child: Form(
                         key: _formKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            DropdownButtonFormField<String>(
-                              menuMaxHeight: SizeConfig.screenHeight * 0.3,
-                              isExpanded: true,
-                              value: school,
-                              hint: const Text('Pilih Sekolah'),
-                              items: List.generate(
-                                schoolsName.length,
-                                (index) => DropdownMenuItem(
-                                  value: schoolsName[index],
-                                  child: Text(
-                                    schoolsName[index],
-                                    overflow: TextOverflow.ellipsis,
+                            DropdownSearch<String>(
+                              dropdownButtonProps: DropdownButtonProps(
+                                iconSize: getProportionateScreenHeight(30),
+                                icon: const Icon(Icons.arrow_drop_down_rounded),
+                                focusColor: kMainColor,
+                              ),
+                              popupProps: PopupProps.menu(
+                                showSearchBox: true,
+                                searchFieldProps: TextFieldProps(
+                                  decoration: InputDecoration(
+                                    border: const UnderlineInputBorder(),
+                                    prefixIcon: Icon(
+                                      Icons.search_rounded,
+                                      size: getProportionateScreenHeight(20),
+                                    ),
+                                    focusColor: kMainColor,
                                   ),
                                 ),
+                                disabledItemFn: (String s) => s.startsWith('I'),
+                                searchDelay: const Duration(
+                                    seconds: 0, milliseconds: 10),
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  school = value as String;
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.arrow_drop_down_rounded,
-                                color: kMainColor,
+                              items: schoolsName,
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                dropdownSearchDecoration: InputDecoration(
+                                  labelText: "Sekolah",
+                                  labelStyle: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: getProportionateScreenHeight(20),
+                                    color: kTextColor,
+                                  ),
+                                  focusColor: kMainColor,
+                                ),
                               ),
-                              iconSize: getProportionateScreenHeight(30),
-                              decoration: const InputDecoration(
-                                labelText: 'Sekolah',
-                              ),
+                              onChanged: print,
                             ),
                             TextFormField(
                               controller: textController,
@@ -135,41 +142,22 @@ class _DataRegisterState extends State<DataRegister> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return kPhoneNullError;
-                                } else if (value.isNotEmpty &&
-                                    value.length < 9) {
-                                  return kPhoneTooShort;
                                 } else {
                                   return null;
                                 }
                               },
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 labelText: 'Nama Lengkap',
                                 labelStyle: TextStyle(
                                   fontWeight: FontWeight.w500,
+                                  fontSize: getProportionateScreenHeight(20),
+                                  color: kTextColor,
                                 ),
                               ),
                               style: TextStyle(
                                 fontSize: getProportionateScreenHeight(20),
                                 fontWeight: FontWeight.w500,
                               ),
-                              // decoration: InputDecoration(
-                              //   prefixIcon: Padding(
-                              //     padding: EdgeInsets.symmetric(
-                              //       horizontal: getProportionateScreenWidth(5),
-                              //     ),
-                              //     child: Text(
-                              //       "+62",
-                              //       style: TextStyle(
-                              //         fontSize: getProportionateScreenWidth(28),
-                              //         fontWeight: FontWeight.bold,
-                              //       ),
-                              //     ),
-                              //   ),
-                              //   prefixIconConstraints: const BoxConstraints(
-                              //     minWidth: 0,
-                              //     minHeight: 0,
-                              //   ),
-                              // ),
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(30),
                                 FilteringTextInputFormatter.singleLineFormatter,
@@ -177,7 +165,7 @@ class _DataRegisterState extends State<DataRegister> {
                               onChanged: (value) {
                                 setState(
                                   () {
-                                    email = value;
+                                    name = value;
                                   },
                                 );
                               },
@@ -196,11 +184,13 @@ class _DataRegisterState extends State<DataRegister> {
                                   return null;
                                 }
                               },
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'example@gmail.com',
                                 labelText: 'Email',
                                 labelStyle: TextStyle(
                                   fontWeight: FontWeight.w500,
+                                  fontSize: getProportionateScreenHeight(20),
+                                  color: kTextColor,
                                 ),
                                 // alignLabelWithHint: false,
                               ),
@@ -225,39 +215,19 @@ class _DataRegisterState extends State<DataRegister> {
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight * 0.04,
+                      height: SizeConfig.screenHeight * 0.1,
                     ),
                     RoundedButton(
                       width: SizeConfig.screenWidth * 0.8,
                       text: 'Daftar',
-                      press: () {},
+                      press: () {
+                        Navigator.pushNamed(context, SuccessScreen.routeName);
+                      },
                     ),
                     Padding(
                       padding: EdgeInsets.only(
                         bottom: getProportionateScreenHeight(25),
                       ),
-                      child: const SizedBox(
-                          // child: Text.rich(
-                          //   TextSpan(
-                          //     children: [
-                          //       const TextSpan(
-                          //           text: 'Sudah Memiliki Akun? Masuk '),
-                          //       TextSpan(
-                          //         text: 'disini',
-                          //         style: const TextStyle(color: kMainColor),
-                          //         recognizer: TapGestureRecognizer()
-                          //           ..onTap = () {
-                          //             Navigator.pushNamed(
-                          //               context,
-                          //               LoginScreen.routeName,
-                          //             );
-                          //           },
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   style: const TextStyle(fontWeight: FontWeight.w500),
-                          // ),
-                          ),
                     ),
                   ],
                 ),
