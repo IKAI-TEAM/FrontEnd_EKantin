@@ -19,11 +19,7 @@ class ProductSheet extends StatefulWidget {
 class _ProductSheetState extends State<ProductSheet> {
   int itemCount = 1;
   int total = 0;
-<<<<<<< Updated upstream
   int addon = 0;
-=======
-
->>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -172,7 +168,6 @@ class _ProductSheetState extends State<ProductSheet> {
                       ],
                     ),
                   ),
-<<<<<<< Updated upstream
                   Row(
                     children: [
                       Padding(
@@ -191,42 +186,17 @@ class _ProductSheetState extends State<ProductSheet> {
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
                                     const Color.fromARGB(255, 250, 250, 250),
-=======
-                  widget.product.addons.isNotEmpty
-                      ? Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: getProportionateScreenWidth(30),
-                              ),
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  fixedSize: MaterialStateProperty.all<Size>(
-                                    Size.fromWidth(
-                                      SizeConfig.screenWidth * 0.3,
-                                    ),
->>>>>>> Stashed changes
-                                  ),
-                                  padding: MaterialStateProperty.all<
-                                      EdgeInsetsGeometry>(EdgeInsets.zero),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                    const Color.fromARGB(255, 250, 250, 250),
                                   ),
                                 ),
                                 onPressed: () {
                                   showModalBottomSheet(
-<<<<<<< Updated upstream
                                     context: context,
-=======
->>>>>>> Stashed changes
                                     isScrollControlled: true,
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                         top: Radius.circular(30),
                                       ),
                                     ),
-<<<<<<< Updated upstream
                                     builder: (BuildContext context) {
                                       return AddOnSheet(
                                         product: widget.product,
@@ -234,12 +204,6 @@ class _ProductSheetState extends State<ProductSheet> {
                                         hargaTambahan: (addons) {
                                           addon = addons;
                                         },
-=======
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AddOnSheet(
-                                        product: widget.product,
->>>>>>> Stashed changes
                                       );
                                     },
                                   );
@@ -277,7 +241,6 @@ class _ProductSheetState extends State<ProductSheet> {
                                       ),
                                     ),
                                   ],
-<<<<<<< Updated upstream
                                 ),
                               )
                             : Text(
@@ -290,14 +253,6 @@ class _ProductSheetState extends State<ProductSheet> {
                       ),
                     ],
                   ),
-=======
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : const Text("no addon"),
->>>>>>> Stashed changes
                   RoundedButton(
                     text:
                         "Masukkan Keranjang - Rp. ${total != 0 ? total + addon : widget.product.price}",

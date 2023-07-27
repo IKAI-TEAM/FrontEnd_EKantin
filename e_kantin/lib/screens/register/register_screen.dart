@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
-import '../verification/verification_screen.dart';
 
 class ScreenArguments {
   final String phone;
