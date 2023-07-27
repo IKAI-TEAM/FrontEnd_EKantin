@@ -109,8 +109,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ),
                     Form(
                       key: VerificationScreen._formKey,
-                      child: OtpForm(onOtpFormComplete: (_otpValues) {
-                        otpValues = _otpValues;
+                      child: OtpForm(onOtpFormComplete: (otpValues) {
+                        otpValues = otpValues;
                       }),
                     ),
                     FormError(errors: errors),
