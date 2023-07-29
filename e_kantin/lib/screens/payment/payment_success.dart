@@ -1,4 +1,6 @@
 import 'package:e_kantin/components/rounded_button.dart';
+import 'package:e_kantin/screens/activity/activity_screen.dart';
+import 'package:e_kantin/screens/home/home_screen.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -174,7 +176,9 @@ class PaymentSuccess extends StatelessWidget {
               margin: 0,
               vPadding: getProportionateScreenHeight(18),
               text: 'Lihat Pesanan',
-              press: () {},
+              press: () {
+                Navigator.popAndPushNamed(context, ActivityScreen.routeName);
+              },
               width: SizeConfig.screenWidth * 0.9,
               border: 5,
             ),
@@ -182,7 +186,9 @@ class PaymentSuccess extends StatelessWidget {
               margin: getProportionateScreenHeight(10),
               vPadding: getProportionateScreenHeight(15),
               text: 'Kembali Ke Beranda',
-              press: () {},
+              press: () {
+                Navigator.popAndPushNamed(context, HomePage.routeName);
+              },
               width: SizeConfig.screenWidth * 0.9,
               border: 5,
               color: Colors.white,

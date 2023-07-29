@@ -8,7 +8,6 @@ import 'package:e_kantin/screens/home/components/special_offer.dart';
 import 'package:e_kantin/screens/menu/menu_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../size_config.dart';
-import 'main_background.dart';
 
 class MainBody extends StatelessWidget {
   const MainBody({super.key});

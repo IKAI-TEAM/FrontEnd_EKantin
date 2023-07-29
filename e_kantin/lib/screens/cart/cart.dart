@@ -173,7 +173,7 @@ class CartScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Image.asset(
-                                              'assets/icons/cookies.png',
+                                              'assets/images/mastercard.png',
                                             ),
                                             Padding(
                                               padding: EdgeInsets.symmetric(
@@ -191,7 +191,7 @@ class CartScreen extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '3123 0242 2341 2131',
+                                                    '5223 0242 2341 2131',
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -243,7 +243,7 @@ class CartScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Image.asset(
-                                              'assets/icons/cookies.png',
+                                              'assets/images/pickup_point.png',
                                             ),
                                             Padding(
                                               padding: EdgeInsets.symmetric(
@@ -261,7 +261,7 @@ class CartScreen extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '3123 0242 2341 2131',
+                                                    'Tujuan Pengiriman',
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -271,7 +271,7 @@ class CartScreen extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                    'Metode Pembayaran',
+                                                    'Kelas XII Tel 13',
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -344,7 +344,7 @@ class CartScreen extends StatelessWidget {
                                           RoundedButton(
                                             text: 'Bayar',
                                             press: () {
-                                              Navigator.pushNamed(
+                                              Navigator.popAndPushNamed(
                                                 context,
                                                 PaymentSuccess.routeName,
                                               );
