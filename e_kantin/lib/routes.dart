@@ -1,6 +1,6 @@
 import 'package:e_kantin/screens/activity/activity_screen.dart';
 import 'package:e_kantin/screens/cart/cart.dart';
-import 'package:e_kantin/screens/chat/chat_screen.dart';
+import 'package:e_kantin/screens/search/search_screen.dart';
 import 'package:e_kantin/screens/home/home_screen.dart';
 import 'package:e_kantin/screens/login/login_screen.dart';
 import 'package:e_kantin/screens/menu/menu_screen.dart';
@@ -25,7 +25,7 @@ final Map<String, WidgetBuilder> routes = {
   HomePage.routeName: (context) => const HomePage(),
   MenuScreen.routeName: (context) => const MenuScreen(),
   ActivityScreen.routeName: (context) => const ActivityScreen(),
-  ChatScreen.routeName: (context) => const ChatScreen(),
+  SearchScreen.routeName: (context) => const SearchScreen(),
   ProfileScreen.routeName: (context) => const ProfileScreen(),
   CartScreen.routeName: (context) => const CartScreen(),
   PaymentSuccess.routeName: (context) => const PaymentSuccess(),

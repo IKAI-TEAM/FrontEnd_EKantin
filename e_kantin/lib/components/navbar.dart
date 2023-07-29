@@ -1,6 +1,6 @@
 import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/screens/activity/activity_screen.dart';
-import 'package:e_kantin/screens/chat/chat_screen.dart';
+import 'package:e_kantin/screens/search/search_screen.dart';
 import 'package:e_kantin/screens/home/home_screen.dart';
 import 'package:e_kantin/screens/profile/profile._screen.dart';
 import 'package:e_kantin/size_config.dart';
@@ -21,7 +21,7 @@ class _NavBarState extends State<NavBar> {
   List activePages = [];
   List pages = [
     HomePage.routeName,
-    ChatScreen.routeName,
+    SearchScreen.routeName,
     ActivityScreen.routeName,
     ProfileScreen.routeName,
   ];

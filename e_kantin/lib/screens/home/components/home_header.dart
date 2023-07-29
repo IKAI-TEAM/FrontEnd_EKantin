@@ -38,7 +38,7 @@ class HomeHeader extends StatelessWidget {
             height: SizeConfig.screenWidth * 0.12,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
                   "Good Morning",

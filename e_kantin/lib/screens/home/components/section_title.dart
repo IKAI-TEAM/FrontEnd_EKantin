@@ -7,7 +7,9 @@ class SectionTitle extends StatelessWidget {
     super.key,
     required this.text,
     required this.press,
+    required this.tap,
   });
+  final bool tap;
   final String text;
   final GestureTapCallback press;
 
@@ -27,16 +29,18 @@ class SectionTitle extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          GestureDetector(
-            onTap: press,
-            child: Text(
-              "See More",
-              style: TextStyle(
-                color: kMainColor,
-                fontSize: getProportionateScreenWidth(14),
-              ),
-            ),
-          )
+          tap
+              ? GestureDetector(
+                  onTap: press,
+                  child: Text(
+                    "See More",
+                    style: TextStyle(
+                      color: kMainColor,
+                      fontSize: getProportionateScreenWidth(14),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

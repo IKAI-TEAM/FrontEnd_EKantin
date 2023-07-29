@@ -27,20 +27,15 @@ class MainBody extends StatelessWidget {
             child: Column(
               children: [
                 const HomeHeader(),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20),
-                    vertical: getProportionateScreenHeight(5),
-                  ),
-                  child: const SearchField(),
-                ),
                 const SpecialOffer(),
                 SectionTitle(
+                  tap: true,
                   text: "Categories",
                   press: () {},
                 ),
                 const Categories(),
                 SectionTitle(
+                  tap: true,
                   text: "Best Seller",
                   press: () {
                     Navigator.pushNamed(context, MenuScreen.routeName);
