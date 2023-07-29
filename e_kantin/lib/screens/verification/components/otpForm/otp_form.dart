@@ -8,7 +8,7 @@ class OtpForm extends StatefulWidget {
   const OtpForm({Key? key, required this.onOtpFormComplete}) : super(key: key);
 
   @override
-  _OtpFormState createState() => _OtpFormState();
+  State<OtpForm> createState() => _OtpFormState();
 }
 
 class _OtpFormState extends State<OtpForm> {

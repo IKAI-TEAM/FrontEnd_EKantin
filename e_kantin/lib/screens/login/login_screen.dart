@@ -183,26 +183,31 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: SizeConfig.screenWidth * 0.8,
                       text: 'Masuk',
                       press: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState?.save();
+                        Navigator.pushNamed(
+                          context,
+                          VerificationScreen.routeName,
+                          arguments: {"phone_number": phoneNum},
+                        );
+                        // if (_formKey.currentState!.validate()) {
+                        //   _formKey.currentState?.save();
 
-                          LoginRequestModel model = LoginRequestModel(
-                            phoneNumber: int.parse(phoneNum),
-                          );
+                        //   LoginRequestModel model = LoginRequestModel(
+                        //     phoneNumber: int.parse(phoneNum),
+                        //   );
 
-                          APIService.login(model).then(
-                            (response) => {
-                              if (response)
-                                {
-                                  Navigator.pushNamed(
-                                    context,
-                                    VerificationScreen.routeName,
-                                    arguments: {"phone_number": phoneNum},
-                                  ),
-                                },
-                            },
-                          );
-                        }
+                        //   APIService.login(model).then(
+                        //     (response) => {
+                        //       if (response)
+                        //         {
+                        //           Navigator.pushNamed(
+                        //             context,
+                        //             VerificationScreen.routeName,
+                        //             arguments: {"phone_number": phoneNum},
+                        //           ),
+                        //         },
+                        //     },
+                        //   );
+                        // }
                       },
                     ),
                     Padding(

@@ -120,41 +120,45 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       width: SizeConfig.screenWidth * 0.8,
                       text: 'Verifikasi',
                       press: () {
-                        if (VerificationScreen._formKey.currentState!
-                            .validate()) {
-                          log(otpValues.toString());
-                          log("saved");
-                          VerificationScreen._formKey.currentState!.save();
+                        Navigator.pushNamed(
+                          context,
+                          SuccessScreen.routeName,
+                        );
+                        //   if (VerificationScreen._formKey.currentState!
+                        //       .validate()) {
+                        //     log(otpValues.toString());
+                        //     log("saved");
+                        //     VerificationScreen._formKey.currentState!.save();
 
-                          if (!otpValues.contains(null)) {
-                            OtpValidationRequestModel model =
-                                OtpValidationRequestModel(
-                                    otp: _getOtpValues(otpValues));
+                        //     if (!otpValues.contains(null)) {
+                        //       OtpValidationRequestModel model =
+                        //           OtpValidationRequestModel(
+                        //               otp: _getOtpValues(otpValues));
 
-                            APIService.otp(model).then(
-                              (response) => {
-                                if (response == 1)
-                                  {
-                                    Navigator.pushNamed(
-                                      context,
-                                      SuccessScreen.routeName,
-                                    ),
-                                  }
-                                else if (response == 2)
-                                  {
-                                    Navigator.pushNamed(
-                                        context, DataRegister.routeName),
-                                  }
-                                else
-                                  {setState(() => errors.add('OTP Salah'))}
-                              },
-                            );
-                          } else {
-                            setState(() => errors.add("ADA YANG BELUM DIISI"));
-                          }
-                        } else {
-                          setState(() => errors.add("Invalid"));
-                        }
+                        //       APIService.otp(model).then(
+                        //         (response) => {
+                        //           if (response == 1)
+                        //             {
+                        //               Navigator.pushNamed(
+                        //                 context,
+                        //                 SuccessScreen.routeName,
+                        //               ),
+                        //             }
+                        //           else if (response == 2)
+                        //             {
+                        //               Navigator.pushNamed(
+                        //                   context, DataRegister.routeName),
+                        //             }
+                        //           else
+                        //             {setState(() => errors.add('OTP Salah'))}
+                        //         },
+                        //       );
+                        //     } else {
+                        //       setState(() => errors.add("ADA YANG BELUM DIISI"));
+                        //     }
+                        //   } else {
+                        //     setState(() => errors.add("Invalid"));
+                        //   }
                       },
                     ),
                     Padding(
@@ -184,7 +188,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   int _getOtpValues(otpValues) {
     String otpString = otpValues.join();
     String numericString = otpString.replaceAll(RegExp('[^0-9]'), '');
-    log(numericString);
+    log(otpString);
     int otpResult = int.parse(numericString);
     try {
       otpResult = int.parse(numericString);
