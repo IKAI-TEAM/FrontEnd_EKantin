@@ -1,11 +1,8 @@
 import 'package:e_kantin/components/fab.dart';
 import 'package:e_kantin/components/navbar.dart';
-import 'package:e_kantin/constants.dart';
-import 'package:e_kantin/screens/cart/cart.dart';
 import 'package:e_kantin/screens/home/components/categories.dart';
 import 'package:e_kantin/screens/home/components/home_header.dart';
 import 'package:e_kantin/screens/home/components/product_view.dart';
-import 'package:e_kantin/screens/home/components/search_field.dart';
 import 'package:e_kantin/screens/home/components/section_title.dart';
 import 'package:e_kantin/screens/home/components/special_offer.dart';
 import 'package:e_kantin/screens/menu/menu_screen.dart';
@@ -19,34 +16,32 @@ class MainBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainBackground(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: SafeArea(
-            maintainBottomViewPadding: true,
-            child: Column(
-              children: [
-                const HomeHeader(),
-                const SpecialOffer(),
-                SectionTitle(
-                  tap: true,
-                  text: "Categories",
-                  press: () {},
-                ),
-                const Categories(),
-                SectionTitle(
-                  tap: true,
-                  text: "Best Seller",
-                  press: () {
-                    Navigator.pushNamed(context, MenuScreen.routeName);
-                  },
-                ),
-                const ProductCarousel(),
-                SizedBox(
-                  height: SizeConfig.screenHeight * 0.1,
-                )
-              ],
-            ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SafeArea(
+          maintainBottomViewPadding: true,
+          child: Column(
+            children: [
+              const HomeHeader(),
+              const SpecialOffer(),
+              SectionTitle(
+                tap: true,
+                text: "Categories",
+                press: () {},
+              ),
+              const Categories(),
+              SectionTitle(
+                tap: true,
+                text: "Best Seller",
+                press: () {
+                  Navigator.pushNamed(context, MenuScreen.routeName);
+                },
+              ),
+              const ProductCarousel(),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.1,
+              )
+            ],
           ),
         ),
       ),

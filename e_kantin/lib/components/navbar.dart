@@ -1,4 +1,3 @@
-import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/screens/activity/activity_screen.dart';
 import 'package:e_kantin/screens/search/search_screen.dart';
 import 'package:e_kantin/screens/home/home_screen.dart';

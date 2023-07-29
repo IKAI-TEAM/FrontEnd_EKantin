@@ -4,8 +4,6 @@ import 'package:e_kantin/components/rounded_button.dart';
 import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 
 class ActivityScreen extends StatelessWidget {
   static String routeName = "/activity";

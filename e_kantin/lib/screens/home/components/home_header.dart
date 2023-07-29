@@ -48,7 +48,7 @@ class HomeHeader extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Nabeel Muhammad Diaz",
+                  "Demo E-Kantin",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenHeight(18),

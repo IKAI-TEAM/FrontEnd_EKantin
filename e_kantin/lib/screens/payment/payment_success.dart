@@ -1,5 +1,4 @@
 import 'package:e_kantin/components/rounded_button.dart';
-import 'package:e_kantin/constants.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -86,7 +85,7 @@ class PaymentSuccess extends StatelessWidget {
                           SizedBox(
                             height: getProportionateScreenHeight(3),
                           ),
-                          Text(
+                          const Text(
                             'Tunggu diantarkan oleh pengirim',
                             style: TextStyle(
                               color: Colors.black87,
@@ -141,7 +140,7 @@ class PaymentSuccess extends StatelessWidget {
                           SizedBox(
                             height: getProportionateScreenHeight(3),
                           ),
-                          Flexible(
+                          const Flexible(
                             child: Text(
                               'Penjual menyiapkan pesanan\ndan akan segera dikirim.',
                               softWrap: true,

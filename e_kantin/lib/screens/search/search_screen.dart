@@ -1,8 +1,11 @@
 import 'package:e_kantin/components/fab.dart';
 import 'package:e_kantin/components/navbar.dart';
+import 'package:e_kantin/models/product.dart';
+import 'package:e_kantin/screens/home/components/product_view.dart';
 import 'package:e_kantin/screens/home/components/search_field.dart';
 import 'package:e_kantin/screens/home/components/section_title.dart';
 import 'package:e_kantin/screens/menu/menu_screen.dart';
+import 'package:e_kantin/screens/search/components/product_list.dart';
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -13,45 +16,45 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: SizeConfig.screenHeight,
-        child: Column(
-          children: [
-            SectionTitle(
-              tap: false,
-              text: "Pencarian Terbaru",
-              press: () {
-                Navigator.pushNamed(context, MenuScreen.routeName);
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: getProportionateScreenHeight(20),
-                horizontal: getProportionateScreenHeight(20),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          height: SizeConfig.screenHeight,
+          child: Column(
+            children: [
+              SectionTitle(
+                tap: false,
+                text: "Pencarian Terbaru",
+                press: () {
+                  Navigator.pushNamed(context, MenuScreen.routeName);
+                },
               ),
-              child: Row(
-                children: [
-                  Container(
-                    height: SizeConfig.screenHeight * 0.18,
-                    width: SizeConfig.screenWidth * 0.35,
-                    color: Colors.amber,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: SizeConfig.screenHeight * 0.12,
-                          width: SizeConfig.screenWidth * 0.35,
-                          color: Colors.black,
-                        ),
-                        Text('data'),
-                        Text('data'),
-                      ],
-                    ),
-                  )
-                ],
+              const ProductCarousel(),
+              SectionTitle(
+                tap: false,
+                text: "Rekomendasi Untuk Anda",
+                press: () {
+                  Navigator.pushNamed(context, MenuScreen.routeName);
+                },
               ),
-            )
-          ],
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenHeight(20),
+                ),
+                child: Column(
+                  children: [
+                    ...List.generate(
+                      demoProduct.length,
+                      (index) => ProductInSearch(
+                        product: demoProduct[index],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
