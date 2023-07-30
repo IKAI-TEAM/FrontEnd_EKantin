@@ -38,6 +38,9 @@ dependencies:
      provider: ^6.0.0
      http: ^0.13.6
      api_cache_manager: ^1.0.2
+     modal_bottom_sheet: ^2.1.2
+     never_behind_keyboard: ^1.0.2
+     dropdown_search: ^5.0.6
 
 dev_dependencies:
      flutter_test:
@@ -64,6 +67,8 @@ flutter:
      assets:
           - assets/images/
           - assets/icons/
+          - assets/icons/active/
+          - assets/icons/nonactive/
 
      # An image asset can refer to one or more resolution-specific "variants", see
      # https://flutter.dev/assets-and-images/#resolution-aware

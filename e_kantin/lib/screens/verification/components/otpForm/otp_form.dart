@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,10 +5,10 @@ import 'package:flutter/services.dart';
 class OtpForm extends StatefulWidget {
   final ValueSetter<List<dynamic>> onOtpFormComplete;
 
-  OtpForm({Key? key, required this.onOtpFormComplete}) : super(key: key);
+  const OtpForm({Key? key, required this.onOtpFormComplete}) : super(key: key);
 
   @override
-  _OtpFormState createState() => _OtpFormState();
+  State<OtpForm> createState() => _OtpFormState();
 }
 
 class _OtpFormState extends State<OtpForm> {
@@ -24,7 +22,6 @@ class _OtpFormState extends State<OtpForm> {
     super.initState();
     for (int i = 0; i < _focusNodes.length; i++) {
       _focusNodes[i].addListener(() {
-
         if (i > 0) {
           if (_focusNodes[i].hasFocus) {
             if (otpCode[i - 1] == null) {
@@ -71,7 +68,6 @@ class _OtpFormState extends State<OtpForm> {
                 }
                 return null;
               },
-              onSaved: (pin) {},
               onChanged: (value) => _onPinChanged(i, value),
               style: Theme.of(context).textTheme.titleLarge,
               keyboardType: TextInputType.number,

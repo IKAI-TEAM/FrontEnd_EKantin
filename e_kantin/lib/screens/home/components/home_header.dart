@@ -38,7 +38,7 @@ class HomeHeader extends StatelessWidget {
             height: SizeConfig.screenWidth * 0.12,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
                   "Good Morning",
@@ -48,7 +48,7 @@ class HomeHeader extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Nabeel Muhammad Diaz",
+                  "Demo E-Kantin",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenHeight(18),

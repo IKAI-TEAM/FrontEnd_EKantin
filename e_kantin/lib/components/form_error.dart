@@ -1,3 +1,4 @@
+import 'package:e_kantin/size_config.dart';
 import 'package:flutter/material.dart';
 
 class FormError extends StatelessWidget {
@@ -22,9 +23,19 @@ class FormError extends StatelessWidget {
   Row formErrorText({required String error}) {
     return Row(
       children: [
-        const Icon(Icons.error),
-        Text(
-          error,
+        const Icon(
+          Icons.error_outline,
+          color: Colors.red,
+        ),
+        Padding(
+          padding: EdgeInsets.all(getProportionateScreenHeight(6)),
+          child: Text(
+            error,
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: getProportionateScreenHeight(15),
+            ),
+          ),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:e_kantin/constants.dart';
 import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 
@@ -9,8 +10,16 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 45,
+      margin: EdgeInsets.symmetric(
+        horizontal: getProportionateScreenHeight(15),
+        vertical: getProportionateScreenHeight(20),
+      ),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(30)),
+        color: kTextColor.withOpacity(0.1),
+        border: Border.all(color: kTextColor),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: TextFormField(
         textAlignVertical: TextAlignVertical.top,
         decoration: InputDecoration(
@@ -29,7 +38,7 @@ class SearchField extends StatelessWidget {
           ),
           contentPadding: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(20),
-            vertical: getProportionateScreenHeight(10),
+            vertical: 0,
           ),
         ),
       ),
